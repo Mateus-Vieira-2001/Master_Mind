@@ -1,36 +1,19 @@
 module Game
-  class Players
-    def initialize(player1)
-      @desafiado = player1
-    end
-    def desafiado
-      @desafiado
-    end
-  end
-  class Distribution
+  class Play
     def initialize
-      #@board = Array.new(10){Array.new(4)}
       @random_pin = Array.new(4)
-      # puts @board.inspect
       # Big pins
       # R = Red, G = Green, B = Blue, V = Violet, Y = Yellow, O=Orange, P = Pink
       @bPins  = ['R','G','B','V','Y','O','P']
-    end
-
-    def raflle
-      @random_pin=(@bPins.shuffle.take(4))
-      puts @random_pin.inspect
-    end
-  end
-
-  class Play
-    def initialize
       @instance = Distribution.new
-      player = @desafiado
       @trying_find_collors = Array.new()
       @turn = 1
       @check = Array.new(4)
       #@random_pin=random_pin
+    end
+    def raflle
+      @random_pin=(@bPins.shuffle.take(4))
+      puts @random_pin.inspect
     end
     def master_mind
       while @turn<=10
@@ -61,9 +44,7 @@ module Game
     end
   end
 
-  #player1 = Players.new('Desafiado')
   #distribution= Distribution.new
   #Play.new(distribution.raflle).master_mind
-  z_instance = Game::Play.new
-  z_instance.master_mind
+  Play.new
 end
