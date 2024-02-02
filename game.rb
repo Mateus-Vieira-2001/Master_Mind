@@ -1,19 +1,26 @@
 module Game
-  class Play
+  class Distribution
     def initialize
       @random_pin = Array.new(4)
       # Big pins
       # R = Red, G = Green, B = Blue, V = Violet, Y = Yellow, O=Orange, P = Pink
       @bPins  = ['R','G','B','V','Y','O','P']
-      @instance = Distribution.new
+    end
+
+    def raflle
+      @random_pin=(@bPins.shuffle.take(4))
+      puts @random_pin.inspect
+      @random_pin
+    end
+  end
+
+  class Play
+    def initialize(raflle)
+      @raflle=raflle
       @trying_find_collors = Array.new()
       @turn = 1
       @check = Array.new(4)
       #@random_pin=random_pin
-    end
-    def raflle
-      @random_pin=(@bPins.shuffle.take(4))
-      puts @random_pin.inspect
     end
     def master_mind
       while @turn<=10
@@ -24,17 +31,17 @@ module Game
             @trying_find_collors[i]=gets.chomp.upcase
           end
   # Verifica o item adicionado e ja coloca pino branco ou preto para os determinadas resultados
-          if @trying_find_collors[i]==@instance.raflle[i]
-            @check[@i]='Black'
-          elsif @random_pin.include?(@trying_find_collors[i])
-            @check[@i]=['White']
+          if @trying_find_collors[i]==@raflle[i]
+            @check[i]='Black'
+          elsif @raflle.include?(@trying_find_collors[i])
+            @check[i]=['White']
           else
-            @check[@i]=nil
+            @check[i]=nil
           end
 
         end
 
-        if @check.include?(nil)==False || @check.include?('White')==False
+        if @check.include?(nil)==false || @check.include?('White')==false
           puts 'you win'
           exit
         end
@@ -44,7 +51,7 @@ module Game
     end
   end
 
-  #distribution= Distribution.new
-  #Play.new(distribution.raflle).master_mind
-  Play.new
+  distribution= Distribution.new
+  Play.new(distribution.raflle).master_mind
+
 end
